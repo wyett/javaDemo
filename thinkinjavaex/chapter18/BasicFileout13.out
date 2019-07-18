@@ -1,0 +1,27 @@
+1: // thinkinjavaex/chapter18/BasicFileOut13.java
+2: import java.io.*;
+3: 
+4: public class BasicFileOut13 {
+5:     static String outfile = "BasicFileout13.out";
+6:     public static void main(String[] args)
+7:     throws IOException {
+8:         // BufferedReader in = 
+9:             // new BufferedReader(
+10:                     // new FileReader("BasicFileOut13.java"));
+11:         PrintWriter out = 
+12:             new PrintWriter(
+13:                 new BufferedWriter(
+14:                     new FileWriter(outfile)));
+15:         // int lineCount = 1;
+16:         LineNumberReader lnis = 
+17:             new LineNumberReader(
+18:                 new FileReader("BasicFileOut13.java"));
+19:         String s;
+20:         while((s = lnis.readLine()) != null){
+21:             // LineNumberInputStream lnis = 
+22:                 // new LineNumberInputStream();
+23:             out.println(lnis.getLineNumber() + ": " + s);
+24:         }
+25:         out.close();
+26:     }
+27: }

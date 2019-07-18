@@ -1,0 +1,35 @@
+35: }
+34:     }
+33:         out.close();
+32:             out.println(line-- + ": " + it.previous());
+31:             ls.listIterator(ls.size()); it.hasPrevious();)
+30:         for(ListIterator<String> it = 
+29:         int line = ls.size();
+28:                     new FileWriter(args[1])));
+27:                 new BufferedWriter(
+26:             new PrintWriter(
+25:         PrintWriter out =
+24:         List<String> ls = read(args[0]);
+23:         }
+22:             return;
+21:                 "Usage: java Ex12 infile outfile");
+20:             System.err.println(
+19:         if(args.length != 2) {
+18:     throws IOException {
+17:     public static void main(String[] args)
+16:     }
+15:         return ls;
+14:             ls.add(s);
+13:         while((s = in.readLine()) != null)
+12:         String s;
+11:             new BufferedReader(new FileReader(filename));
+10:         BufferedReader in =
+9:         List<String> ls = new ArrayList<String>();
+8:     read(String filename) throws IOException {
+7:     public static List<String>
+6: public class Ex12 {
+5: 
+4: import java.util.*;
+3: import java.io.*;
+2: 
+1: // thinkinjavaex/chapter18/Ex12.java

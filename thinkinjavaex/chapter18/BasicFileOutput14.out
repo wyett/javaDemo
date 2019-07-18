@@ -1,0 +1,47 @@
+1: // thinkinjava/chapter18/BasicFileOutput14.java
+2: import java.io.*;
+3: import java.util.*;
+4: 
+5: public class BasicFileOutput14 {
+6:     static String outfile = "BasicFileOutput14.out";
+7:     public static List<String> 
+8:     read(String filename) throws IOException {
+9:         BufferedReader in = new BufferedReader(
+10:             new FileReader(filename));
+11:         List<String> list = new ArrayList<String>();
+12:         String s;
+13:         while((s = in.readLine()) != null)
+14:             list.add(s);
+15:         return list;
+16:     }
+17:     public static void main(String[] args)
+18:     throws IOException {
+19:         if(args.length != 1){
+20:             System.err.println(
+21:                 "Usage: java BasicFileOutput14 filename");
+22:             return;
+23:         }
+24:         List<String> ls = read(args[0]);
+25:         PrintWriter out = 
+26:             new PrintWriter(
+27:                 new BufferedWriter(
+28:                     new FileWriter(outfile)));
+29:         int lineCount = 1;
+30:         long t1 = System.currentTimeMillis();
+31:         for(String s: ls)
+32:             out.println(lineCount++ + ": " + s);
+33:         long t2 = System.currentTimeMillis();
+34:         System.out.println("buffered: " + (t2 - t1));
+35:         out.close();
+36:         
+37:         out = new PrintWriter(new FileWriter(outfile));
+38:         lineCount = 1;
+39:         long t3 = System.currentTimeMillis();
+40:         for(String s: ls)
+41:             out.println(lineCount++ + ": " + s);
+42:         long t4 = System.currentTimeMillis();
+43:         System.out.println("unbuffered: " + (t4 - t3));
+44:         out.close();
+45:         
+46:     }
+47: }
