@@ -1,11 +1,14 @@
 package mynet.concurrencysocket;
 
+import mynet.concurrencysocket.datadecorator.UserInfoAddStringDecorator;
 import mynet.concurrencysocket.datamodel.UserInfo;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 /**
  * @author : wyettLei
@@ -15,41 +18,51 @@ import java.net.Socket;
  * @version: $
  */
 
-public class ClientPointSocket implements Runnable{
-//    private Socket socket = null;
-//    public ClientPointSocket(Socket socket) {
-//        this.socket = socket;
-//    }
-    private String userName;
-    private String userPassword;
-    private String host;
-    private int port;
-    public ClientPointSocket(String userStr) {
-        this.userName = userStr.split(" ")[0];
-        this.userPassword = userStr.split(" ")[1];
-        ReadProperties rp = new ReadProperties("master.properties");
-        this.host = rp.getItemValue("master_ip");
-        this.port = Integer.parseInt(rp.getItemValue("master_port"));
+public class ClientPointSocket<T> implements Runnable{
+    private T t;
+    private InetAddress remoteHost;
+    private int remotePort;
+    private InetAddress localHost;
+    private int localPort;
+    public ClientPointSocket(T t, InetAddress remoteHost,
+                             int remotePort,
+                             InetAddress localHost,
+                             int localPort) {
+        this.t = t;
+        this.remoteHost = remoteHost;
+        this.remotePort = remotePort;
+        this.localHost = localHost;
+        this.localPort = localPort;
+//        System.out.println(t);
     }
+    @Override
     public void run() {
         Socket socket = null;
         ObjectInputStream is = null;
         ObjectOutputStream os = null;
         try {
-            socket = new Socket(host, port);
+            // output
+            System.out.println(t);
+            System.out.println("===========");
+            socket = new Socket(remoteHost, remotePort, localHost, localPort);
             os = new ObjectOutputStream(socket.getOutputStream());
-            os.writeObject(new UserInfo(userName, userPassword));
+            ReflectModel<T> reflectModel = new ReflectModel<T>();
+            reflectModel.encode(t);
+            os.writeObject(t);
             os.flush();
 
             // input
             is = new ObjectInputStream(socket.getInputStream());
+            System.out.println(is.readObject());
             Object obj = is.readObject();
+
             if(obj != null) {
-                UserInfo userInfo = (UserInfo) obj;
-                System.out.println("user: " + userInfo.getName() +
-                        ", password: " + userInfo.getPassword());
+                t = (T) obj;
+                System.out.println(t);
             }
-        } catch(IOException | ClassNotFoundException ex) {
+        } catch(IOException | ClassNotFoundException ex){
+            ex.printStackTrace();
+        } catch(Exception ex){
             ex.printStackTrace();
         } finally {
             try {

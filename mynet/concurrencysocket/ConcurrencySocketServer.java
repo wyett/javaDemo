@@ -1,5 +1,7 @@
 package mynet.concurrencysocket;
 
+import mynet.concurrencysocket.datadecorator.TalkModelAddStringDecorator;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -20,7 +22,9 @@ import java.util.concurrent.TimeUnit;
 public class ConcurrencySocketServer {
     private static final int backlog = 200;
     public static void main(String[] args) {
-        ReadProperties rp = new ReadProperties("master.properties");
+        ReadProperties rp = new ReadProperties
+                ("G:/java/idea/src/mynet/concurrencysocket/" +
+                        "master.properties");
         ServerSocket serverSocket = null;
         Socket socket = null;
 
@@ -39,7 +43,8 @@ public class ConcurrencySocketServer {
             ExecutorService exec = Executors.newFixedThreadPool(5);
             while (true) {
                 socket = serverSocket.accept();
-                exec.execute(new ServerPointSocket(socket));
+                exec.execute(
+                        new ServerPointSocket<TalkModelAddStringDecorator>(socket));
             }
         } catch(IOException e) {
             e.printStackTrace();

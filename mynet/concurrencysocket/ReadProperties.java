@@ -13,16 +13,25 @@ import java.util.Properties;
 
 public class ReadProperties {
     private String filename;
-
     public ReadProperties(String filename) {
+//        String fpath = getFilePath();
+//        this.filename = fpath + filename;
+//        System.out.println("fpath = " + fpath +
+//            "filename = " + filename);
         this.filename = filename;
     }
+//    public String getFilePath() {
+//        return Class.class.getClass().getResource("/").getPath();
+//        return Class.class.getClassLoader()
+//                .getResource("/").getPath();
+//    }
     public String getItemValue(String item) {
         Properties properties = new Properties();
         try {
-            BufferedReader bufferedReader =
-                    new BufferedReader(new FileReader(filename));
-            properties.load(bufferedReader);
+            InputStream inputStream =
+                    new BufferedInputStream(
+                            new FileInputStream(filename));
+            properties.load(inputStream);
         } catch(IOException ex) {
             ex.printStackTrace();
         }

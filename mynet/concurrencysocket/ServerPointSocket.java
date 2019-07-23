@@ -1,5 +1,6 @@
 package mynet.concurrencysocket;
 
+import mynet.concurrencysocket.datadecorator.TalkModelAddStringDecorator;
 import mynet.concurrencysocket.datadecorator.UserInfoAddStringDecorator;
 import mynet.concurrencysocket.datamodel.UserInfo;
 
@@ -16,7 +17,7 @@ import java.net.Socket;
  * @version: $
  */
 
-public class ServerPointSocket implements Runnable{
+public class ServerPointSocket<T> implements Runnable{
     private Socket svsocket;
     public ServerPointSocket(Socket sock) {
         this.svsocket = sock;
@@ -32,14 +33,22 @@ public class ServerPointSocket implements Runnable{
 
             // output...
             os = new ObjectOutputStream(svsocket.getOutputStream());
-            UserInfoAddStringDecorator userInfo =
-                    (UserInfoAddStringDecorator) obj;
-            ReflectModel<UserInfoAddStringDecorator> user =
-                    new ReflectModel<UserInfoAddStringDecorator>();
-            user.decode(userInfo);
-            os.writeObject(userInfo);
+//            UserInfoAddStringDecorator userInfo =
+//                    (UserInfoAddStringDecorator) obj;
+//            System.out.println("ServerPointSocket: " + userInfo);
+//            ReflectModel<UserInfoAddStringDecorator> reflectModel =
+//                    new ReflectModel<UserInfoAddStringDecorator>();
+            T t = (T) obj;
+            System.out.println("ServerPointSocket: " + t);
+            ReflectModel<T> reflectModel = new ReflectModel<T>();
+            reflectModel.decode(t);
+            os.writeObject(t);
             os.flush();
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch(IOException ex ) {
+            ex.printStackTrace();
+        } catch(ClassNotFoundException ex) {
+            ex.printStackTrace();
+        } catch(Exception ex) {
             ex.printStackTrace();
         } finally {
             try {
@@ -49,5 +58,4 @@ public class ServerPointSocket implements Runnable{
             } catch(Exception ex) {}
         }
     }
-
 }

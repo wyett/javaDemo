@@ -1,6 +1,7 @@
 package mynet.concurrencysocket.datamodel;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author : wyettLei
@@ -37,19 +38,16 @@ public class UserInfo implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-//    transfer func
-//    public static void main(String[] args) {
-//        UserModel userModel = (str)->{
-//            String[] tmpStr = str.split("_new");
-//            return tmpStr[0];
-//        };
-//        decode(userModel);
+//    private String[] userInfo;
+//    public UserInfo(String[] userInfo) {
+//        this.userInfo = userInfo;
 //    }
-//    public static void decode(UserInfo userInfo) {
-//        List<String> ls = new ArrayList<String>();
-//        ls.add(userInfo.getName());
-//        ls.add(userInfo.getPassword());
-//        ls.stream().forEach(userInfo::decrypt);
+//    private List<String> userInfo;
+//    public UserInfo(List<String> userInfo) {
+//        this.userInfo = userInfo;
+//    }
+//    @Override
+//    public String toString(){
+//        return userInfo.toArray().toString();
 //    }
 }
