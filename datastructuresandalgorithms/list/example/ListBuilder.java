@@ -36,7 +36,7 @@ public class ListBuilder {
     public static int sum(List<Integer> lst) {
         int total = 0;
         for(int i = 0; i < N; i++) {
-            total += lst.get();
+            total += lst.get(i);
         }
         return total;
     }
@@ -47,11 +47,13 @@ public class ListBuilder {
      * */
     public static void removeEvensVer1(List<Integer> lst) {
         int i = 0;
-        while(i < lst.size())
-            if(lst.get(i) % 2 == 0)
+        while(i < lst.size()) {
+            if (lst.get(i) % 2 == 0) {
                 lst.remove(i);
-            else
+            } else {
                 i++;
+            }
+        }
     }
     /**
      *   Collection.remove(), 时间复杂度为O(N)
@@ -59,8 +61,9 @@ public class ListBuilder {
      * */
     public static void removeEvensVer2(List<Integer> lst) {
         for(Integer x: lst) {
-            if(x % 2 == 0)
+            if(x % 2 == 0) {
                 lst.remove(x);
+            }
         }
     }
 
