@@ -35,7 +35,7 @@ public class ListBuilder {
      * */
     public static int sum(List<Integer> lst) {
         int total = 0;
-        for(int i = 0; i < N; i++) {
+        for(int i = 0; i < lst.size(); i++) {
             total += lst.get(i);
         }
         return total;
