@@ -1,6 +1,8 @@
 package datastructuresandalgorithms.list.example;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 import com.sun.org.apache.xpath.internal.functions.FuncTranslate;
+import com.sun.org.apache.xpath.internal.functions.Function;
 
 /**
  * @author : wyettLei
@@ -11,8 +13,19 @@ import com.sun.org.apache.xpath.internal.functions.FuncTranslate;
  */
 
 public class MyLinkedList<E> implements Iterable<E> {
-    /** declare static class Node */
-    private static class Node<E>{};
+    /**
+     * inner class Node<E>
+     */
+    private static class Node<E> {
+        public Node(E d, Node<E> p, Node<E> n) {
+            data = d;
+            prev = p;
+            next = n;
+        }
+        public E data;
+        public Node<E> prev;
+        public Node<E> next;
+    }
 
     // size of MyLinkedList
     private int theSize;
@@ -28,8 +41,22 @@ public class MyLinkedList<E> implements Iterable<E> {
      */
     public MyLinkedListList() { doClear(); }
 
-    /** declare func clear */
-    public void clear() {}
+
+    /**
+     * clear MyLinkedList
+     */
+    public void clear() { doClear(); }
+
+    /**
+     * clear MyLinkedList
+     */
+    public void doClear() {
+        beginMaker = new Node<E>(null, null, null);
+        endMarker = new Node<E>(null, beginMaker, null);
+        beginMaker.next = endMarker;
+        theSize = 0;
+        modCount++;
+    }
 
     /**
      * get size of MyLinkedList
@@ -96,12 +123,46 @@ public class MyLinkedList<E> implements Iterable<E> {
         return remove(getNode(idx));
     }
 
-    /** declare func addBefore */
-    private void addBefore(Node<E> p, E x) {}
-    /** declare func remove */
-    private E remove(Node<E> p) {}
-    /** declare func getNode */
-    private Node<E> getNode(int idx) {}
+    /**
+     * Adds an item to this collection, at specified pos p.
+     * Items at or after that position are slid one position higher.
+     * @param p Node to add before
+     * @param x E type object
+     * @throws IndexOutOfBoundsException if idx is not between 0 and size
+     */
+    private void addBefore(Node<E> p, E x) {
+        Node<E> newNode = new Node<>(x, p.prev, p);
+        newNode.prev.next = newNode;
+        p.prev = newNode;
+        theSize++;
+        modCount++;
+    }
+
+    /**
+     * Removes the object contained in Node p
+     * @param p the Node containing the object and to be removed
+     * @return the item was removed from the collection
+     */
+    private E remove(Node<E> p) {
+        p.next.prev = p.prev;
+        p.prev.next = p.next;
+        theSize--;
+        modCount++;
+
+        return p.data;
+    }
+
+    /**
+     * Gets the Node at position idx, which must range from 0
+     * to size() - 1,
+     * @param idx index to search at
+     * @return internal node corresponding to idx
+     * @throws IndexOutOfBoundsException if idx is not
+     *         between 0 and size() - 1, inclusive
+     */
+    private Node<E> getNode(int idx) {
+        return getNode(idx, 0, size() - 1);
+    }
     /** declare func getNode with other version */
     private Node<E> getNode(int idx, int lower, int upper) {}
 
@@ -110,17 +171,7 @@ public class MyLinkedList<E> implements Iterable<E> {
     }
     /** inner class LinkedListIterator */
     private class LinkedListIterator implements java.util.Iterator<E> {}
-}
 
-private static class Node<E> {
-    public Node(E d, Node<E> p, Node<E> n) {
-        data = d;
-        prev = p;
-        next = n;
-    }
-    public E data;
-    public Node<E> prev;
-    public Node<E> next;
 }
 
 
