@@ -88,7 +88,7 @@ public class MyLinkedList<E> implements Iterable<E> {
      * @param x
      * @return boolean
      */
-    public boolean add(int idx, E x) {
+    public void add(int idx, E x) {
         addBefore(getNode(idx, 0, size()), x);
     }
 
@@ -158,20 +158,97 @@ public class MyLinkedList<E> implements Iterable<E> {
      * @param idx index to search at
      * @return internal node corresponding to idx
      * @throws IndexOutOfBoundsException if idx is not
-     *         between 0 and size() - 1, inclusive
+     *         between 0 and size() - 1
      */
     private Node<E> getNode(int idx) {
         return getNode(idx, 0, size() - 1);
     }
-    /** declare func getNode with other version */
-    private Node<E> getNode(int idx, int lower, int upper) {}
 
+    /**
+     * Gets the Node at position idx, which must range from
+     * lower to upper.
+     * @param idx index to search at.
+     * @param lower lowest valid index.
+     * @param upper upper highest valid index
+     * @return internal node correspond to idx
+     * @throws IndexOutOfBoundsException if idx is not
+     *         between lower and upper,inclusive
+     */
+    private Node<E> getNode(int idx, int lower, int upper) {
+        Node<E> p;
+        if(idx < lower || idx > upper) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if(idx < size()/2) {
+            p = beginMaker.next;
+            for(int i = 0; i < idx; i++) {
+                p = p.next;
+            }
+        } else {
+            p = endMarker;
+            for(int i = size(); i > idx; i--) {
+                p = p.prev;
+            }
+        }
+        return p;
+    }
+
+    @Override
     public java.util.Iterator<E> iterator() {
         return new LinkedListIterator();
     }
-    /** inner class LinkedListIterator */
-    private class LinkedListIterator implements java.util.Iterator<E> {}
 
+    /** inner class LinkedListIterator */
+    private class LinkedListIterator implements java.util.Iterator<E> {
+
+        private Node<E> current = beginMaker.next;
+        private int expectedModCount = modCount;
+        private boolean okToRemove = false;
+
+        /**
+         * @return check if has next element
+         */
+        @Override
+        public boolean hasNext() {
+            return current != endMarker;
+        }
+
+        /**
+         * @return return if has next element
+         */
+        @Override
+        public E next() {
+            if(modCount != expectedModCount) {
+                throw new java.util.ConcurrentModificationException();
+            }
+            if(!hasNext()) {
+                throw new java.util.NoSuchElementException();
+            }
+
+            E nextItem = current.data;
+            current = current.next;
+            okToRemove = true;
+            return nextItem;
+        }
+
+        /**
+         * remove current element
+         */
+        @Override
+        public void remove() {
+            if(modCount != expectedModCount) {
+                throw new java.util.ConcurrentModificationException();
+            }
+            if(!okToRemove) {
+                throw new IllegalStateException();
+            }
+
+            MyLinkedList.this.remove(current.prev);
+            expectedModCount++;
+            okToRemove = false;
+        }
+    }
 }
 
 
