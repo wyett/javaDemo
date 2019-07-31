@@ -17,23 +17,23 @@ public class Ex04_intersection<E> {
     public List<E> getIntersection(List<E> le1, List<E> le2) {
         List<E> leres = new ArrayList<>();
         Iterator<E> ie1 = le1.iterator();
-        Iterator<E> ie2 = le2.iterator();
 
         while(ie1.hasNext()) {
             E tmp = ie1.next();
-            while(ie2.hasNext()) {
-                if(tmp == ie2.next()) {
+            for(E element: le2) {
+                if(tmp == element) {
                     leres.add(tmp);
                 }
             }
-            return leres;
         }
+        return leres;
     }
     public static void main(String[] args) {
         Ex04_intersection<Integer> ex04 = new Ex04_intersection<>();
         List<Integer> li1 = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         List<Integer> li2 = new ArrayList<>(Arrays.asList(1,3,6,7,9));
+        System.out.println(li1);
+        System.out.println(li2);
         System.out.println(ex04.getIntersection(li1, li2));
     }
-
 }
