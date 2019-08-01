@@ -7,8 +7,10 @@ package datastructuresandalgorithms.list.example;
  */
 
 public class MyStack<E> {
-    private MyArrayList<E> me = new MyArrayList<>();
-
+    private MyArrayList<E> me;
+    public MyStack() {
+        this.me = new MyArrayList<>();
+    }
     /**
      * @param elem to be push into mystack
      */
@@ -29,7 +31,7 @@ public class MyStack<E> {
     /**
      * @return top of stack
      */
-    public E peek() {
+    public E top() {
         if(me != null && me.size() > 0) {
             return me.get(me.size() - 1);
         }
