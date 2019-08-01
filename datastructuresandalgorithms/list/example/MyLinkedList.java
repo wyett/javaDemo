@@ -39,7 +39,7 @@ public class MyLinkedList<E> implements Iterable<E> {
     /**
      * constructor, build a null MyListedList
      */
-    public MyLinkedListList() { doClear(); }
+    public MyLinkedList() { doClear(); }
 
 
     /**
@@ -121,6 +121,19 @@ public class MyLinkedList<E> implements Iterable<E> {
      */
     public E remove(int idx) {
         return remove(getNode(idx));
+    }
+
+    /**
+     * check if LinkedList contains x
+     * @param x element to be checked
+     * @return check result
+     */
+    public boolean contains(E x) {
+        Node<E> p = beginMaker.next;
+        while(p != endMarker && !(p.data.equals(x))) {
+            p = p.next;
+        }
+        return (p.next != endMarker);
     }
 
     /**
