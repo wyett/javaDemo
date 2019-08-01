@@ -126,6 +126,22 @@ public class MyArrayList<E> implements Iterable<E> {
         }
     }
 
+    public boolean contains(E elem) {
+        E tmpElem = null;
+        for(int i = 0; i < theSize; i++) {
+            if(theItems[i] == elem) {
+                tmpElem = elem;
+                break;
+            }
+        }
+        if(tmpElem != null) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     /**
      * add new elem x at the end of ArrayList
      * if sucessed, return true
