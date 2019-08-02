@@ -73,7 +73,7 @@ public class PostfixCalculate {
                     if(sc.peek() != '(' ) {
                         lpostfix.add(sc.pop());
                     } else {
-                        sc.pop();
+                        break;
                     }
                 }
                 sc.push(cinfix);
