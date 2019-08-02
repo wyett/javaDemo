@@ -1,7 +1,6 @@
 package datastructuresandalgorithms.list.example;
 
-import com.sun.org.apache.xalan.internal.xsltc.dom.ArrayNodeListIterator;
-
+import java.util.Iterator;
 /**
  * @author : wyettLei
  * @date : Created in 2019/7/25 16:25
@@ -173,6 +172,17 @@ public class MyArrayList<E> implements Iterable<E> {
     }
 
     /**
+     * @param items
+     */
+    public void addAll(Iterable<? extends E> items) {
+        Iterator<? extends E> itemIterator = items.iterator();
+        while(itemIterator.hasNext()) {
+//            theItems[theSize++] = itemIterator.next();
+            add(itemIterator.next());
+        }
+    }
+
+    /**
      * remove idxth element and make
      * theItems[i] = theItems[i + 1], i = idx;
      *
@@ -189,6 +199,7 @@ public class MyArrayList<E> implements Iterable<E> {
 
     }
 
+    @Override
     public java.util.Iterator<E> iterator() {
         return new ArrayListIterator();
     }
