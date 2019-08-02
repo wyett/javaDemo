@@ -4,6 +4,8 @@ import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 import com.sun.org.apache.xpath.internal.functions.FuncTranslate;
 import com.sun.org.apache.xpath.internal.functions.Function;
 
+import java.util.Iterator;
+
 /**
  * @author : wyettLei
  * @date : Created in 2019/7/25 20:02
@@ -121,6 +123,22 @@ public class MyLinkedList<E> implements Iterable<E> {
      */
     public E remove(int idx) {
         return remove(getNode(idx));
+    }
+
+    public void removeAll(Iterable<? extends E> items) {
+        Iterator<? extends E> itemIterator = items.iterator();
+        E item, element;
+        while(itemIterator.hasNext()) {
+            item = itemIterator.next();
+
+            Iterator<E> theIter = iterator();
+            while(theIter.hasNext()) {
+                element = theIter.next();
+                if(element.equals(item)) {
+                    theIter.remove();
+                }
+            }
+        }
     }
 
     /**
