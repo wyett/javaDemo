@@ -61,7 +61,7 @@ public class Ex11_SingleLinkedList<E> {
      * print data of list
      */
     public void printList() {
-        E[] items = new E[];
+        E[] items = null;
         int i = 0;
         SNode<E> firstNode = beginMaker;
         while(firstNode.next != null) {
