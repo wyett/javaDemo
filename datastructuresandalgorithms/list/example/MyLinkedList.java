@@ -161,7 +161,7 @@ public class MyLinkedList<E> implements Iterable<E> {
      * @param x E type object
      * @throws IndexOutOfBoundsException if idx is not between 0 and size
      */
-    private void addBefore(Node<E> p, E x) {
+    public void addBefore(Node<E> p, E x) {
         Node<E> newNode = new Node<>(x, p.prev, p);
         newNode.prev.next = newNode;
         p.prev = newNode;
