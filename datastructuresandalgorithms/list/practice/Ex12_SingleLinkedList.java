@@ -8,8 +8,8 @@ package datastructuresandalgorithms.list.practice;
  * @version: $
  */
 
-public class Ex12_SingleLinkedList<E> {
-    private class Node<E> implements Comparable<E>{
+public class Ex12_SingleLinkedList<E extends Comparable<? super E>> {
+    private class Node<E>{
         public E data;
         public Node<E> next;
 
@@ -21,11 +21,6 @@ public class Ex12_SingleLinkedList<E> {
             this.data = d;
             this.next = n;
         }
-
-        @Override
-        public int compareTo(E o) {
-            return 0;
-        }
     }
 
     // header node
@@ -35,7 +30,7 @@ public class Ex12_SingleLinkedList<E> {
 
     // init
     public Ex12_SingleLinkedList() {
-        beginMaker = new Node<>(null);
+        beginMaker = new Node<E>(null);
         beginMaker.next = null;
     }
 
@@ -64,8 +59,8 @@ public class Ex12_SingleLinkedList<E> {
         Node<E> pnext = beginMaker.next;
         Node<E> xnode = new Node<E>(x, null);
         while(pnext != null) {
-            if(pnext.compareTo(xnode.data) < 0 &&
-                    pnext.next.compareTo(xnode.data) >= 0) {
+            if(pnext.data.compareTo(xnode.data) < 0 &&
+                    pnext.next.data.compareTo(xnode.data) >= 0) {
                 xnode.next = pnext.next;
                 pnext.next = xnode;
                 theSize++;
