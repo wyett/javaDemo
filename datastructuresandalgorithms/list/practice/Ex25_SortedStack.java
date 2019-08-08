@@ -5,9 +5,8 @@ import java.util.SortedSet;
 /**
  * @author : wyettLei
  * @date : Created in 2019/8/8 18:40
- * @description: TODO
- * @modified By:
- * @version: $
+ * @description: Sorted Stack with the smallest element at the top, add function
+ *               findMin and deleteMin
  */
 
 public class Ex25_SortedStack<E extends Comparable<? super E>> {
