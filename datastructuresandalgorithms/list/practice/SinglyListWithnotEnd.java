@@ -49,6 +49,16 @@ public class SinglyListWithnotEnd<E> {
     }
 
     /**
+     * purge node
+     * @param cur
+     */
+    private void del(Node<E> cur) {
+        cur.next = null;
+        cur.data = null;
+//        cur = null;
+    }
+
+    /**
      * check if empty
      */
     public boolean isEmpty() {
@@ -141,16 +151,19 @@ public class SinglyListWithnotEnd<E> {
         checkPosition(idx);
 
         Node<E> curNode = getNode(idx);
+        E tmp = null;
         if(idx == 0) {
+            tmp = curNode.data;
             curNode.next = null;
             theSize--;
         } else {
+            tmp = curNode.data;
             Node<E> prevNode = getNode(idx - 1);
             prevNode.next = curNode.next;
             curNode.next = null;
             theSize--;
         }
-        return curNode.data;
+        return tmp;
     }
 
     /**
@@ -159,6 +172,14 @@ public class SinglyListWithnotEnd<E> {
      */
     public E removeLast() {
         return remove(theSize-1);
+    }
+
+    /**
+     * remove first element from list
+     * @return
+     */
+    public E removeFirst() {
+        return remove(0);
     }
 
     /**
