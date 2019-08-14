@@ -26,8 +26,8 @@ public class SinglyLinkedListStackTest {
 
         System.out.println("start of queue:");
 
-        Ex31_SinglyListWithnotEndQueue<String> esq =
-                new Ex31_SinglyListWithnotEndQueue<>(
+        Ex32_SinglyListWithnotEndQueue<String> esq =
+                new Ex32_SinglyListWithnotEndQueue<>(
                         new SinglyListWithnotEnd<>());
         esq.push("aaa");
         esq.push("bbb");
