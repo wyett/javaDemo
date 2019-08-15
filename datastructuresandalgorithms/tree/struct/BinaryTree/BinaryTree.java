@@ -251,7 +251,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
     }
 
     /**
-     * inorder traversal
+     * inorder traversal with recursion
      * leftChild - parentsNode - rightNode
      * @param cur
      */
@@ -263,8 +263,43 @@ public class BinaryTree<E extends Comparable<? super E>> {
         }
     }
 
+    /**
+     * inorder traversal without recursion
+     * @param cur
+     */
+    private void inOrderWithoutRecursion(BinaryNode<E> cur) {
+        Stack<BinaryNode<E>> stack = new Stack<>();
+        BinaryNode<E> curNode = cur;
+        // push root node into stack
+//        stack.push(curNode);
+        while(!stack.isEmpty() || curNode != null) {
+
+            if(curNode != null) {
+                // push node into stack, the far left node is at the top of
+                // stack, when curNode is null ,over;
+                stack.push(curNode);
+                curNode = curNode.left;
+            } else {
+                // when curNode is the far left node, pop from the stack;
+                // do
+                //   curnode is the far left node ,and print curNode.data;
+                //   if it has right node , curNode = curNode.right
+                //   if not, pop second
+                // done
+                // when get rightNode, do abave clause
+                curNode = stack.pop();
+                System.out.print(curNode.data);
+                curNode = curNode.right;
+            }
+        }
+    }
+
+
+
     public void inOrder() {
         inOrder(root);
+        System.out.println();
+        inOrderWithoutRecursion(root);
         System.out.println();
     }
 
@@ -273,7 +308,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
      * parentsNode - leftChild - rightChild
      * @param cur
      */
-    public void preOrder(BinaryNode<E> cur) {
+    private void preOrder(BinaryNode<E> cur) {
         if(cur != null) {
             System.out.print(cur.data);
             preOrder(cur.left);
@@ -281,9 +316,35 @@ public class BinaryTree<E extends Comparable<? super E>> {
         }
     }
 
+    /**
+     * preorder traversal with out recursion;
+     * @param cur
+     */
+    private void preOrderWithoutRecursion(BinaryNode<E> cur) {
+        Stack<BinaryNode<E>> stack = new Stack<>();
+        BinaryNode<E> curNode = cur;
+        stack.push(curNode);
+        while(!stack.isEmpty()) {
+            System.out.print(curNode.data);
+            // push curNode.right into stack;
+            if(curNode.right != null) {
+                stack.push(curNode.right);
+            }
+            // if curNode.left is not null, move pointer to curNode.left
+            // else pop curNode.right from stack
+            if(curNode.left != null) {
+                curNode = curNode.left;
+            } else {
+                curNode = stack.pop();
+            }
+        }
+        System.out.println();
+    }
+
     public void preOrder() {
         preOrder(root);
         System.out.println();
+        preOrderWithoutRecursion(root);
     }
 
     /**
@@ -299,9 +360,53 @@ public class BinaryTree<E extends Comparable<? super E>> {
         }
     }
 
+    /**
+     * postorder traversal without recursion
+     * @param cur
+     */
+    private void postOrderWithoutRecursion(BinaryNode<E> cur) {
+        if(cur == null) {
+            throw new NoSuchElementException();
+        }
+
+        Stack<BinaryNode<E>> stack = new Stack<>();
+        BinaryNode<E> curNode = cur;
+        /** get left Node and push it into stack,
+            at last, pointer is at the far left node */
+        while(curNode != null) {
+            stack.push(curNode);
+            curNode = curNode.left;
+        }
+
+        while(!stack.isEmpty()) {
+            BinaryNode<E> tmpNode = curNode;
+
+            curNode = stack.pop();
+            if(curNode.right == null || curNode.right == tmpNode) {
+                System.out.print(curNode.data);
+            } else if(curNode.left == tmpNode) {
+                // push curNode into stack
+                stack.push(curNode);
+                // change pointor to curNode.right;
+                curNode = curNode.right;
+                // push curNode
+                stack.push(curNode);
+                // deal with curNode's child tree
+                while(curNode != null) {
+                    if(curNode.left != null) {
+                        stack.push(curNode.left);
+                    }
+                    curNode = curNode.left;
+                }
+            }
+        }
+        System.out.println();
+    }
+
     public void postOrder() {
         postOrder(root);
         System.out.println();
+        postOrderWithoutRecursion(root);
     }
 
 
