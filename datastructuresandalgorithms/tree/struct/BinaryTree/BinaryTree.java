@@ -51,17 +51,26 @@ public class BinaryTree<E extends Comparable<? super E>> {
     }
 
     /**
+     * return height of node.data == x
+     * @param x
+     * @return int
+     */
+    public int getHeight(E x) {
+        return getHeight(getParentNode(x)) - 1;
+    }
+
+    /**
      * get height of node cur
      * @param cur
      * @return
      */
     public int getHeight(BinaryNode<E> cur) {
         if(cur == null) {
-            throw new NoSuchElementException();
+            return 0;
         }
 
         if(cur.left == null && cur.right == null) {
-            return 0;
+            return 1;
         }
         int leftHight = getHeight(cur.left);
         int rightHight = getHeight(cur.right);
@@ -86,28 +95,24 @@ public class BinaryTree<E extends Comparable<? super E>> {
 
     /**
      * print nodes between t node with method
-     * @param t node
      * @param methodType contain inorder, preorder, postorder, levelorder
      */
-    public void printTree(BinaryNode<E> t, String methodType) {
+    public void printTree(String methodType) {
         switch (methodType) {
             case "inorder":
-                inOrder(t);
+                inOrder();
                 break;
             case "preorder":
-                preOrder(t);
+                preOrder();
                 break;
             case "postorder":
-                postOrder(t);
+                postOrder();
                 break;
             case "levelorder":
-                System.out.println(levelOrder());
+                levelOrder();
                 break;
                 default:
-
         }
-
-
     }
 
     /**
@@ -131,7 +136,6 @@ public class BinaryTree<E extends Comparable<? super E>> {
             throw new NoSuchElementException();
         }
 
-        System.out.println(t.data);
         Queue<BinaryNode<E>> queue = new LinkedList<>();
         queue.offer(t);
         while(!queue.isEmpty()) {
@@ -150,25 +154,40 @@ public class BinaryTree<E extends Comparable<? super E>> {
     }
 
     /**
+     * When cur is null, return null; else return node.data;
+     * The best coding is add this func into BinaryNode.java, each field
+     * should be private, and can only be called by set() or get(). But these
+     * costs a lot, so the later data struct will be better, and for
+     * BinaryTree, just keep it.
+     * @param cur
+     * @return
+     */
+    public E getData(BinaryNode<E> cur) {
+        if(cur == null) {
+            return null;
+        }
+        return cur.data;
+    }
+
+    /**
      * get current node's parent node when node.data == x
      * @param x
      * @return
      */
     public BinaryNode<E> getParentNode(E x) {
         if(isEmpty()) {
-//            throw new NoSuchElementException();
             return null;
         }
 
-        // check if x is root
+        // root node has no parent node
         if(x.compareTo(root.data) == 0) {
             return null;
         }
 
-        Stack<BinaryNode<E>> stack = null;
+        Stack<BinaryNode<E>> stack = new Stack<>();
         BinaryNode<E> curNode = root;
 
-        while(!stack.isEmpty()) {
+        while(!stack.isEmpty() || curNode != null) {
             if(curNode != null) {
                 if((curNode.left != null
                         && x.compareTo(curNode.left.data) == 0) ||
@@ -178,10 +197,8 @@ public class BinaryTree<E extends Comparable<? super E>> {
                 }
                 stack.push(curNode);
                 curNode = curNode.left;
-
             } else {
-                curNode = stack.pop();
-                curNode = curNode.right;
+                curNode = stack.pop().right;
             }
         }
         return null;
@@ -192,11 +209,11 @@ public class BinaryTree<E extends Comparable<? super E>> {
             return null;
         }
 
-        Queue<BinaryNode<E>> queue = null;
+        Queue<BinaryNode<E>> queue = new LinkedList<>();
         BinaryNode<E> curNode = null;
         queue.offer(root);
         while(!queue.isEmpty()) {
-            curNode = queue.remove();
+            curNode = queue.poll();
             if(curNode.left != null) {
                 queue.offer(curNode.left);
             }
@@ -215,7 +232,7 @@ public class BinaryTree<E extends Comparable<? super E>> {
             return null;
         }
 
-        Queue<BinaryNode<E>> queue = null;
+        Queue<BinaryNode<E>> queue = new LinkedList<>();
         BinaryNode<E> curNode = null;
         queue.offer(root);
         while(!queue.isEmpty()) {
@@ -262,11 +279,11 @@ public class BinaryTree<E extends Comparable<? super E>> {
             preOrder(cur.left);
             preOrder(cur.right);
         }
-        System.out.println();
     }
 
     public void preOrder() {
         preOrder(root);
+        System.out.println();
     }
 
     /**
@@ -284,32 +301,38 @@ public class BinaryTree<E extends Comparable<? super E>> {
 
     public void postOrder() {
         postOrder(root);
+        System.out.println();
     }
+
 
     /**
      * levelorder traversal
      * @param cur
+     * @return list of node.data
      */
-    public List<BinaryNode<E>> levelOrder(BinaryNode<E> cur) {
+    public List<E> levelOrder(BinaryNode<E> cur) {
         Queue<BinaryNode<E>> queue = new LinkedList<>();
-        List<BinaryNode<E>> list = new ArrayList<>();
+        List<E> list = new ArrayList<>();
         queue.offer(cur);
         BinaryNode<E> tmpNode = null;
         while(!queue.isEmpty()) {
             tmpNode = queue.poll();
-            list.add(tmpNode);
+            list.add(tmpNode.data);
             if(tmpNode.left != null) {
-                queue.offer(tmpNode);
+                queue.offer(tmpNode.left);
             }
             if(tmpNode.right != null) {
-                queue.offer(tmpNode);
+                queue.offer(tmpNode.right);
             }
         }
         return list;
     }
 
-    public List<BinaryNode<E>> levelOrder() {
-        return levelOrder(root);
+    public void levelOrder() {
+        for(E b: levelOrder(root)) {
+            System.out.print(b);
+        }
+        System.out.println();
     }
 }
 

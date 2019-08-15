@@ -4,8 +4,6 @@ package datastructuresandalgorithms.tree.struct.BinaryTree;
  * @author : wyettLei
  * @date : Created in 2019/8/14 20:22
  * @description: TODO
- * @modified By:
- * @version: $
  */
 
 public class BinaryTreeDemo {
@@ -24,16 +22,26 @@ public class BinaryTreeDemo {
         BinaryTree<String> tree = new BinaryTree<>();
 
         tree.setRoot(n10);
-        System.out.println(tree.getRoot().data);
-//        tree.getHeight(n10);
-        tree.find("C");
-        tree.printTree(tree.getRoot(), "inorder");
-        tree.printTree(tree.getRoot(), "preorder");
-        tree.printTree(tree.getRoot(), "postorder");
-        tree.printTree(tree.getRoot(), "levelorder");
+        System.out.println(tree.getHeight(n3));
+        System.out.println(tree.getHeight("F"));
+        // left node
+        System.out.println(tree.getParentNode("F").data);
+        // root node
+        System.out.println(tree.getData(tree.getParentNode("J")));
+        // right node
+        System.out.println(tree.getParentNode("H").data);
+        // node
+        System.out.println(tree.getLChild("H").data);
+        // leaf node
+        System.out.println(tree.getData(tree.getLChild("C")));
+        System.out.println(tree.getRChild("F").data);
+        System.out.println(tree.find("C"));
 
+        tree.printTree("inorder");
+        tree.printTree("preorder");
+        tree.printTree("postorder");
+        tree.printTree("levelorder");
 
-
-
+        System.out.println();
     }
 }
