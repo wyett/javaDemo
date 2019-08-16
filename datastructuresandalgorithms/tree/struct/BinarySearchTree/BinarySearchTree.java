@@ -252,9 +252,9 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
 
         System.out.println("[" +curNode.getData() + ","
                 + getParent(curNode.getData()) + "]");
-        if(n.getLeft() != null) {
+        if(curNode.getLeft() != null) {
             printTree(curNode.getLeft());
-        } else if(n.getRight() != null) {
+        } else if(curNode.getRight() != null) {
             printTree(curNode.getRight());
         }
     }
@@ -315,7 +315,8 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
                     null : curNode.getRight().getData()) + "]");
         if(curNode.getLeft() != null) {
             printTree2(curNode.getLeft());
-        } else if (curNode.getRight() != null) {
+        }
+        if (curNode.getRight() != null) {
             printTree2(curNode.getRight());
         }
     }
