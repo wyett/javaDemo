@@ -8,20 +8,54 @@ package datastructuresandalgorithms.tree.struct.BinarySearchTree;
 
 public class BinarySearchTreeDemo {
     public static void main(String[] args) {
-//        BinarySearchTree<String> tree = new BinarySearchTree<>();
-//        String[] str = {"A", "B", "C", "D", "E", "F", "G", "H"};
-//        for(int i = 0; i < str.length; i++) {
-        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-//        for(int i = 0; i < str.length; i++)
-//            System.out.println(str[i]);
-//            tree.insert(str[i]);
-//        }
-        for(int i = 0; i < 10; i++) {
-            System.out.println(i);
-            tree.insert(i);
-//            System.out.println(tree.contains(i));
+        // tree 1
+        // [H,G,null]
+        //[G,F,null]
+        //[F,E,null]
+        //[E,D,null]
+        //[D,C,null]
+        //[C,B,null]
+        //[B,A,null]
+        //[A,null,null]
+        BinarySearchTree<String> tree1 = new BinarySearchTree<>();
+        String[] str = {"H", "G", "F", "E", "D", "C", "B", "A"};
+        for(int i = 0; i < str.length; i++) {
+            tree1.insert(str[i]);
         }
-//        System.out.println(tree.getRoot().getData());
-        tree.printTree();
+        tree1.printTree();
+
+
+        System.out.println("");
+
+        // tree2
+        // [0,null,1]
+        //[1,null,2]
+        //[2,null,3]
+        //[3,null,4]
+        //[4,null,5]
+        //[5,null,6]
+        //[6,null,7]
+        //[7,null,8]
+        //[8,null,9]
+        //[9,null,null]
+        BinarySearchTree<Integer> tree2 = new BinarySearchTree<>();
+        for(int i = 0; i < 10; i++) {
+            tree2.insert(i);
+        }
+        tree2.printTree();
+
+        System.out.println();
+
+        // tree3
+        // [D,A,E]
+        //[A,null,C]
+        //[C,B,null]
+        //[B,null,null]
+        BinarySearchTree<String> tree3 = new BinarySearchTree<>();
+        String[] str2 = {"D", "A", "C", "B", "E", "H", "G", "F"};
+        for(int i = 0; i < str2.length; i++) {
+            tree3.insert(str2[i]);
+        }
+        tree3.printTree();
     }
 }

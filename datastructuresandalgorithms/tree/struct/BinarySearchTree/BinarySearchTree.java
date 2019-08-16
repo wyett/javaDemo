@@ -167,7 +167,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
      * @param x
      */
     public void insert(E x) {
-        insert(x, root);
+        root = insert(x, root);
     }
 
     /**
@@ -197,7 +197,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
      * @param x
      */
     public void remove(E x) {
-        remove(x, root);
+        root = remove(x, root);
     }
 
     /**
@@ -231,7 +231,7 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
      * print tree
      */
     public void printTree() {
-        printTree(root);
+        printTree2(root);
     }
 
     /**
@@ -244,11 +244,79 @@ public class BinarySearchTree<E extends Comparable<? super E>> {
         }
 
         BSNode<E> curNode = n;
-        System.out.println(curNode.getData());
+//        String flag;
+//
+//        if(curNode == root) {
+//            flag = null;
+//        }
+
+        System.out.println("[" +curNode.getData() + ","
+                + getParent(curNode.getData()) + "]");
         if(n.getLeft() != null) {
             printTree(curNode.getLeft());
         } else if(n.getRight() != null) {
             printTree(curNode.getRight());
+        }
+    }
+
+    /**
+     * get parent node.data
+     * @param x
+     * @return
+     */
+    public E getParent(E x) {
+        BSNode<E> pnode = getParentNode(x, root);
+        if(pnode == null) {
+            return null;
+        }
+        return pnode.getData();
+    }
+
+    /**
+     * get parenet node
+     * @param x item to be check
+     * @return
+     */
+    private BSNode<E> getParentNode(E x, BSNode<E> n) {
+        BSNode<E> curNode = n;
+
+        // x compare with curNode.data
+        int compareResult = x.compareTo(curNode.getData());
+
+        // if curNode is root
+        if(curNode == root && x.compareTo(root.getData()) == 0) {
+            return null;
+        }
+
+        // check
+        if(compareResult < 0) {
+            curNode.setLeft(getParentNode(x, curNode.getLeft()));
+        } else if (compareResult > 0) {
+            curNode.setRight(getParentNode(x, curNode.getRight()));
+        } else { }
+
+        return curNode;
+    }
+
+    /**
+     * print [node, node.left, node.right] per line
+     * @param n the root node in a subtree
+     */
+    public void printTree2(BSNode<E> n) {
+        BSNode<E> curNode = n;
+        if(curNode == null) {
+            throw new NoSuchElementException();
+        }
+
+        System.out.println("[" +curNode.getData() + ","
+                + (curNode.getLeft() == null ?
+                    null : curNode.getLeft().getData()) + ","
+                + (curNode.getRight() == null ?
+                    null : curNode.getRight().getData()) + "]");
+        if(curNode.getLeft() != null) {
+            printTree2(curNode.getLeft());
+        } else if (curNode.getRight() != null) {
+            printTree2(curNode.getRight());
         }
     }
 }
