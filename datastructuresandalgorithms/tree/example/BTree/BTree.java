@@ -16,5 +16,32 @@ package datastructuresandalgorithms.tree.example.BTree;
  *               (6) The root node can have two child node at least
  */
 
-public class BTree<E> {
+public class BTree<E extends Cell> {
+    // order of tree, M
+    private int order;
+    private Page root;
+    public BTree(int order) {
+        this.order = order;
+        root = null;
+//        root = new Page(order);
+    }
+
+    public Page getRoot() {
+        return root;
+    }
+
+    public void createRoot() {
+        root = new Page(order);
+    }
+
+    public void add(E x) {
+
+    }
+
+    public void remove() {}
+
+    public Page merge() {}
+
+
+
 }

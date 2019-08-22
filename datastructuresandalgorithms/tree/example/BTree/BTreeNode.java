@@ -41,4 +41,12 @@ public class BTreeNode {
     public byte getDelBit() {
         return this.delBit;
     }
+
+    public void clear() {
+        this.key = -1;
+        this.setDelBit();
+        this.parent = null;
+        this.child = null;
+        this.data = null;
+    }
 }
