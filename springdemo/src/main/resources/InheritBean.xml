@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="hello1" class="com.wyett.springdemo.ioccontainer.inheritbean.Hello1">
+        <property name="message1" value="Hello1, message1" />
+        <property name="message2" value="Hello1, message2" />
+    </bean>
+
+    <bean id="hello2" class="com.wyett.springdemo.ioccontainer.inheritbean.Hello2"
+          parent="hello1">
+        <property name="message1" value="Hello2, message1" />
+        <property name="message3" value="Hello2, message3 "/>
+
+    </bean>
+
+</beans>
