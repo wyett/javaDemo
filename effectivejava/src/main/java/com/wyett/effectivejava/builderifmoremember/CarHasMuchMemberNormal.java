@@ -1,4 +1,4 @@
-package effectivejava.builderifmoremember;
+package com.wyett.effectivejava.builderifmoremember;
 
 /**
  * @author : chelei

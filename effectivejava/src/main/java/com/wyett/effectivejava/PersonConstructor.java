@@ -1,4 +1,4 @@
-package effectivejava;
+package com.wyett.effectivejava;
 
 /**
  * @author : chelei

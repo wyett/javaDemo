@@ -1,4 +1,4 @@
-package effectivejava.staticfactorymethod;
+package com.wyett.effectivejava.staticfactorymethod;
 
 /**
  * @author : chelei
