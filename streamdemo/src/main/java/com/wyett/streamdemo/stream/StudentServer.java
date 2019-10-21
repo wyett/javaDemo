@@ -2,9 +2,9 @@ package com.wyett.streamdemo.stream;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -19,8 +19,8 @@ public class StudentServer {
     static {
         school.add(new Student(1, "Jhon", 18, "USA"));
         school.add(new Student(2, "Tom", 20, "GER"));
-        school.add(new Student(3, "Mike", 20, "IDN"));
-        school.add(new Student(4, "Lily", 20, "UK"));
+        school.add(new Student(3, "Mike", 20, "USA"));
+        school.add(new Student(4, "Lily", 25, "UK"));
         school.add(new Student(5, "HanMeiMei", 20, "China"));
     }
 
@@ -82,6 +82,32 @@ public class StudentServer {
                 .map(s -> s.getNativeHome())
                 .sorted()
                 .forEach(System.out::println);
+
+
+        System.out.println("=====================");
+        //find the oldest one
+        school.stream().reduce((a, b) -> a.getAge() > b.getAge() ? a : b)
+                .ifPresent(a -> System.out.println(a));
+
+        System.out.println("=====================");
+        //change stream into map
+        HashMap<Integer, Student> map = school.stream().collect(HashMap::new,
+                (m, a) -> m.put(a.getId(), a),
+                (m1, m2) -> m1.putAll(m2));
+        map.forEach((k, v) -> {
+            System.out.println(k);
+            System.out.println(v);
+        });
+
+        System.out.println("=====================");
+        // get average age from the same country
+        Collector<Student, ?, Map<String, Double>> groupCollector =
+                Collectors.groupingBy((Student s) -> s.getNativeHome(),
+                        Collectors.averagingInt((Student s) -> s.getAge()));
+        school.stream().collect(groupCollector).forEach((k, v)
+                -> System.out.println(k + ":" + v));
+
+
 
 
     }
