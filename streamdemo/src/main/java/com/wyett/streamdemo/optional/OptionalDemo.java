@@ -89,8 +89,20 @@ public class OptionalDemo {
                             .map(u -> u.getPhoneNum()).orElse("unknow"));
     }
 
-    //
+    // orElseGet
+    @Test
+    public void testOrElseGet() {
+        pList.stream().forEach(s -> Optional.ofNullable(s)
+                            .map(u -> u.getPhoneNum())
+                            .orElseGet(() -> "unknow"));
+    }
 
 
-
+    // orElseThrow
+    @Test
+    public void testOrElseThrow() {
+        pList.stream().forEach(s -> Optional.ofNullable(s)
+                            .map(u -> u.getGender())
+                            .orElseThrow(() -> new RuntimeException("unknow")));
+    }
 }
