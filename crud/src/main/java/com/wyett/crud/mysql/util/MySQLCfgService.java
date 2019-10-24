@@ -1,4 +1,4 @@
-package com.wyett.crud.conf;
+package com.wyett.crud.mysql.util;
 
 /**
  * @author : wyettLei
