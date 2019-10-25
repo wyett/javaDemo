@@ -19,6 +19,6 @@ public class PropertyInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object o, Method m, Object[] args) throws Throwable {
-
+        return null;
     }
 }
