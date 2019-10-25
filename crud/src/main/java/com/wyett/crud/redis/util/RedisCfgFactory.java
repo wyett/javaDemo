@@ -1,8 +1,5 @@
 package com.wyett.crud.redis.util;
 
-import com.wyett.crud.mysql.util.MySQLCfgService;
-import com.wyett.crud.mysql.util.PropertyInvocationHandler;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Proxy;
@@ -16,16 +13,16 @@ import java.util.Properties;
 
 public class RedisCfgFactory {
     public RedisCfgFactory() {}
-    public static MySQLCfgService readProperties(final InputStream inputStream) {
+    public static RedisCfgService readProperties(final InputStream inputStream) {
         final Properties properties = new Properties();
         try {
             properties.load(inputStream);
         } catch (IOException e) {
             return null;
         }
-        return (MySQLCfgService) Proxy.newProxyInstance(
-                MySQLCfgService.class.getClassLoader(),
-                new Class[] { MySQLCfgService.class },
+        return (RedisCfgService) Proxy.newProxyInstance(
+                RedisCfgService.class.getClassLoader(),
+                new Class[] { RedisCfgService.class },
                 new PropertyInvocationHandler(properties));
     }
 }

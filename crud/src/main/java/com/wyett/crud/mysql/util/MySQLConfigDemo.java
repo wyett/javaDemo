@@ -18,7 +18,7 @@ public class MySQLConfigDemo {
         try {
             InputStream mysqlStream = new FileInputStream
                     ("G:\\java\\javademo\\crud\\src\\main\\java\\com\\wyett\\crud" +
-                            "\\conf\\mysql.properties");
+                            "\\mysql\\conf\\mysql.properties");
             MySQLCfgService mySQLCfgService = MySQLCfgFactory.readProperties(mysqlStream);
             if (mySQLCfgService == null) {
                 return;
@@ -28,7 +28,6 @@ public class MySQLConfigDemo {
             String writePassword = mySQLCfgService.getWritePassword();
             String readpassword = mySQLCfgService.getReadPassword();
             String databasename = mySQLCfgService.getDatabaseName();
-//            System.out.println(mySQLCfgService.getClass().getDeclaredMethods())
             System.out.println(writevip + "\n" +
                                 readvip + "\n"
                             + writePassword + "\n"

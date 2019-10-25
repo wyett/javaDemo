@@ -22,9 +22,12 @@ public class PropertyInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] obj) {
         ReadConf readConf = method.getAnnotation(ReadConf.class);
+        System.out.println(readConf);
+
         if(readConf == null) {
             return null;
         }
+
         String value = readConf.value();
         String property = properties.getProperty(value);
         if(StringUtils.isEmpty(property)) {
