@@ -1,11 +1,8 @@
-package com.wyett.crud.redis;
+package com.wyett.redis;
 
 import redis.clients.jedis.Jedis;
 
-import java.net.ConnectException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

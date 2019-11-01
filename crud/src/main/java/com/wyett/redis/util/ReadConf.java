@@ -1,4 +1,4 @@
-package com.wyett.crud.redis.util;
+package com.wyett.redis.util;
 
 import java.lang.annotation.*;
 

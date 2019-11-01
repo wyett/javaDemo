@@ -1,7 +1,7 @@
-package com.wyett.crud.redis.util;
+package com.wyett.redis.util;
 
 import com.alibaba.druid.util.StringUtils;
-import com.wyett.crud.mysql.util.ReadConf;
+import com.wyett.mysql.util.ReadConf;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
